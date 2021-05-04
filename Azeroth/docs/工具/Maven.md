@@ -186,6 +186,8 @@ pom.xml > settings.xmlnote > settings.xml
 :::
 
 ### 命令操作
+
+```
 项目构建
 mvn archetype:generate
 项目清理/编译/打包
@@ -196,9 +198,10 @@ mvn package：项目进行打包操作，具体是 jar 包还是 war 包根据 p
 mvn tomcat:run
 mvn test
 mvn site
-mvn deplendency:tree
+mvn dependency:tree
 mvn install：当前的项目安装到本地的仓库中
 mvn deploy
+```
 
 ### Maven 生命周期
 - clean lifecyle：项目构建之前的清理环节
@@ -212,15 +215,11 @@ mvn deploy
 
 ## Maven 高手进阶
 ### 依赖范围管理
-**compile**：编译、运行、测试、打包都依赖的 jar 包，如开发项目时对 Spring-core 的依赖就是 compile 范围
-
-**provided**：只在编译和运行时有效，打包时不会包含这样的 jar 包，比如 servlet-api 容器相关的依赖
-
-**runtime**：只在运行时有效，但是打包时会将对应的 jar 包包含进来，如 jdbc 驱动在编译时是不需要参与的，但是运行时是需要具体的第三方实现的 jar 包
-
-**test**：只有测试的时候有效，在编译和运行以及打包时都不会使用，如测试使用的 Junit 依赖就是 test 范围
-
-**system**：本地 jar 包，作用范围和 Provided 一致，但是必须配合 systemPath 指定本地依赖的路径才能使用
+- **compile**：编译、运行、测试、打包都依赖的 jar 包，如开发项目时对 Spring-core 的依赖就是 compile 范围
+- **provided**：只在编译和运行时有效，打包时不会包含这样的 jar 包，比如 servlet-api 容器相关的依赖
+- **runtime**：只在运行时有效，但是打包时会将对应的 jar 包包含进来，如 jdbc 驱动在编译时是不需要参与的，但是运行时是需要具体的第三方实现的 jar 包
+- **test**：只有测试的时候有效，在编译和运行以及打包时都不会使用，如测试使用的 Junit 依赖就是 test 范围
+- **system**：本地 jar 包，作用范围和 Provided 一致，但是必须配合 systemPath 指定本地依赖的路径才能使用
 
 ::: tip
 不写依赖范围的话默认是 compile
@@ -269,10 +268,8 @@ dependencyManagement：是依赖容易，在子项目中使用的时候才会引
 
 ::: tip
 项目聚合有什么好处？
-
-项目之间的整体性较高，便于系统集成和维护
-
-父项目中可以统一打包
+- 项目之间的整体性较高，便于系统集成和维护
+- 父项目中可以统一打包
 :::
 
 ### 常见插件
@@ -301,7 +298,10 @@ Sonatype Nexus
 ## Maven 常见问题
 ### 依赖直接冲突
 项目存在依赖 A 和 B，A 依赖 1.0.0 的 C， B 依赖 2.0.0 的 C
-**怎么解决？**通常引用最新的版本，一般是高版本是向下兼容的。因此 C 要 exclude 掉 1.0.0 的 C。
+
+**怎么解决**？
+
+通常引用最新的版本，一般是高版本是向下兼容的。因此 C 要 exclude 掉 1.0.0 的 C。
 ```xml
 <exclusions>
     <exclusion>
@@ -312,7 +312,10 @@ Sonatype Nexus
 
 ### 依赖传递冲突
 项目依赖 A，A 又依赖 B 和C，项目又不需要 C
-**怎么解决？**直接排除掉
+
+**怎么解决？**
+
+直接排除掉
 ```xml
 <exclusions>
     <exclusion>
